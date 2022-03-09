@@ -1,0 +1,147 @@
+<html>
+<body>
+	<div style="width: 100%;">
+		<div style="width: 50%; float: left; ">
+
+			<canvas id="glcanvas" width="800%" height="800%"></canvas>
+			<font face="Times New Roman"><h1 style="color: red;">Öznur Kandakoğlu</h1></font>
+			<font face="Times New Roman"><h1 style="color: red;">19290250</h1></font>
+
+		</div>
+
+		<div style="width: 50%; float: right; ">
+
+			<h1 style="color: red; font-family: 'Times New Roman', Times, serif;">Öteleme: </h1>
+			<h2 style="color: black; font-family: 'Times New Roman', Times, serif;">Harflere öteleme yapmak için "yön tuşlarını" kullanabilirsiniz. </h2>
+			<br>
+			<h1 style="color: red; font-family: 'Times New Roman', Times, serif;">Renklendirme: </h1>	
+			<h2 style="color: black; font-family: 'Times New Roman', Times, serif;">Harflerin rengini değiştirmek için "Change Color" butonuna tıklayabilirsiniz. </h2>
+			
+				<center>
+
+					<button style="font-family: 'Times New Roman', Times, serif; 
+					background-color: #0075FF ;
+					color: white;
+					font-size: 32px;
+					width: 50% ; 
+					height: 5%; 
+					border: none ;
+					box-shadow: 0 9px rgb(194, 193, 193); 
+					border-radius: 15px;
+					cursor: pointer;
+					text-align: center;	" class="button" id="colorButton">
+						Change Color
+					</button>
+
+				</center>
+
+				<h1 style="color: red; font-family: 'Times New Roman', Times, serif;">Döndürme: </h1>
+				<h2 style="color: black; font-family: 'Times New Roman', Times, serif;">Harfleri saat yönünde döndürmek için "Rotate ClockWise " butonuna, saat yönünün tersine döndürmek için "Rotata Anti ClockWise" butonuna tıklayabilirsiniz. </h2>	
+				
+				<center>
+
+					<button style="background-color: #0075FF; 
+					color:white; 
+					font-family: 'Times New Roman', Times, serif;	
+					font-size: 32px;	
+					width: 50%; 
+					height: 5%; 
+					border: none;
+					box-shadow: 0 9px rgb(194, 193, 193); 
+					border-radius: 15px;
+					cursor: pointer;
+					text-align: center;	" class="button" id="clockwiseRotationButton">
+						Rotate Clockwise
+					</button>
+
+					<br>
+					<br>
+
+					<button style="background-color: #0075FF;
+					color:white ; 
+					font-family: 'Times New Roman', Times, serif;	
+					
+					font-size: 32px;	
+					width: 50% ; 
+					height: 5%; 
+					border: none ;
+					box-shadow: 0 9px rgb(194, 193, 193); 
+					border-radius: 15px;
+					cursor: pointer;
+					text-align: center;	" class=" button" id="AntiClockwiseRotationButton">
+						Rotate Anti Clockwise
+					</button>
+
+					<br>
+					<br>
+
+				</center>
+
+			
+
+			<div id="left-side">
+				<h1 style="color: red; font-family: 'Times New Roman', Times, serif;">Ölçeklendirme: </h1>
+				<h2 style="color: black; font-family: 'Times New Roman', Times, serif;">Harflerin boyutlarını x ekseninde değiştirmek isterseniz "Scale X" barını, y ekseninde değiştirmek isterseniz "Scale Y" barını ve tamamını değiştirmek isterseniz de "Scale" barını kullanabilirsiniz. </h2>
+				
+				<center>
+					<div style="width: 100%;" >
+						<div style="width: 33%; float: left;">
+					<h2>Scale Y</h2>
+					0<input class="slider" id="slider" type="range" min=".1" max="2" step=".00000001" value="1"
+						oninput="changeScaleY(value)" /> 2
+					</div>
+					<div style="width: 33%; float: right;">
+					<h2>Scale X</h2>
+					0<input class="slider" id="slider" type="range" min=".1" max="2" step=".00000001" value="1"
+						oninput="changeScaleX(value)" /> 2
+					</div>
+						<div style="width: 33%; float: right ;">
+					<h2>Scale</h2>
+					0<input class="slider" id="slider" type="range" min=".1" max="2" step=".00000001" value="1"
+						oninput="changeScaleX(value),changeScaleY(value)" /> 2</div>
+					</div>
+				</center>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+</body>
+
+<script id="vertex-shader" type="x-shader/x-vertex">
+
+   attribute vec4 vPosition;
+   uniform float offsetX;
+   uniform float offsetY;
+   uniform float theta;
+   uniform vec2 scale;
+
+   void main() {
+	gl_Position.x = (cos(theta) * (vPosition.x + offsetX)  - sin(theta) * (vPosition.y + offsetY)) * scale.x;
+	gl_Position.y = (sin(theta) * (vPosition.x + offsetX) + cos(theta) *  (vPosition.y + offsetY)) * scale.y;
+	gl_Position.z = 0.0;
+	gl_Position.w = 1.0;
+}
+
+</script>
+<script id="fragment-shader" type="x-shader/x-fragment">
+
+   precision mediump float; 
+   uniform vec4 fColor;
+   
+   void main() {	  
+	  gl_FragColor = fColor;
+   }
+   
+</script>
+
+<script src="../common/initShaders.js"></script>
+<script src="../common/MV.js"></script>
+<script src="../common/webgl-utils.js"></script>
+<script src="19290250.js"></script>
+<!doctype html>
+
+
+</html>
